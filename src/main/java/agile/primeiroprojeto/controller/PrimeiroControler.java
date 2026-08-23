@@ -2,6 +2,8 @@ package agile.primeiroprojeto.controller;
 
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,5 +33,17 @@ public class PrimeiroControler {
     return "Quarta rota criada com sucesso!" + " Nome: " + username.username();
     }
 
+    @GetMapping("/metodoResponseEntity/{id}")
+    public ResponseEntity<Object> metodoResponseEntity(@PathVariable Long id) {
+        var usuario = new Usuario("João");
+
+        if(id > 5) {
+            return ResponseEntity.status(HttpStatus.OK).body(usuario);
+        }
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mensagem de erro para ID: " + id);
+    }
+    
+    
     record Usuario(String username){}
 }
